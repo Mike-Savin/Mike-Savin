@@ -1,0 +1,109 @@
+Object.defineProperty(Array.prototype, "remove", {
+    enumerable: false,
+    value: function (itemToRemove) {
+        var removeCounter = 0;
+        for (var index = 0; index < this.length; index++) {
+            if (this[index] === itemToRemove) {
+                this.splice(index, 1);
+                removeCounter++;
+                index--;
+            }
+        }
+        return removeCounter;
+    }
+});
+
+function BadBalancedTree(n) {
+	this.left = null;
+	this.right = null;
+	this.node = n;
+	this.elements = [n];
+}
+ 
+BadBalancedTree.prototype.build = function(elements, start, end) {
+	
+	var mid = parseInt((start + end) / 2);
+	this.node = elements[mid];
+
+	this.left = build(elements, start, mid - 1);
+	this.right = build(elements, mid + 1, end);
+
+	return this;
+};
+
+function build(elements, start, end) {
+	if (start > end) return null;
+
+	var mid = parseInt((start + end) / 2);
+
+	var el = new BadBalancedTree(elements[mid]);
+	el.elements = elements;
+	el.left = build(elements, start, mid - 1);
+	el.right = build(elements, mid + 1, end);
+
+	return el;
+}
+
+BadBalancedTree.prototype.add = function(n)  {
+	this.elements.push(n);
+	this.elements.sort(function(a,b) { return a - b });
+
+	return this.build(this.elements, 0, this.elements.length);
+};
+
+BadBalancedTree.prototype.remove = function(n) {
+	this.elements.remove(n)
+	console.log(this.elements);
+
+	return this.build(this.elements, 0, this.elements.length);
+};
+
+BadBalancedTree.prototype.print = function(top, left, i) {
+	var p = document.createElement('p');
+	p.style.position = "absolute";
+	p.style.left = left + 'px';
+	p.style.top = top + 'px';
+	p.innerHTML = this.node;
+	p.setAttribute('title', this.node);
+
+	document.body.appendChild(p);
+
+	if (this.left) this.left.print(top + 30, left - 600 / i, i * 2);
+	if (this.right) this.right.print(top + 30, left + 600 / i, i * 2);
+};
+
+var i = 1,
+	tree,
+	start;
+
+window.onload = function() {
+	start = Date.now();
+	tree = new BadBalancedTree(0);
+	while (i < 10000) tree.add(i++);
+	tree.print(30, document.body.offsetWidth / 2, 2);
+
+	alert(Date.now() - start);
+	
+	document.getElementById('add_node').onclick = addAndPrint;
+	document.getElementById('remove_node').onclick = removeAndPrint;
+};
+
+function addAndPrint() {
+	tree = tree.add(i++);
+	clr();
+	tree.print(30, document.body.offsetWidth / 2, 2);
+}
+
+function removeAndPrint() {
+	var input = document.getElementById('remove_input');
+	tree = tree.remove(parseInt(input.value));
+	clr();
+	tree.print(30, document.body.offsetWidth / 2, 2);
+	input.value -= 1;
+}
+
+function clr() {
+	[].slice.call(document.getElementsByTagName('p')).forEach(function(e) {
+		document.body.removeChild(e);
+	});
+}

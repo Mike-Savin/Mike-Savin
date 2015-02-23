@@ -31,3 +31,18 @@ button {
 button:hover {
 	opacity: .9;
 }
+
+#remove_node {
+	left: 70px;
+}
+
+#remove_input {
+	left: 125px;
+	bottom: 15px;
+	position: absolute;
+	padding: 5px 11px;
+	font-size: 28px;
+	text-align: center;
+	border: 1px solid #bbb;
+	width: 100px;
+}
