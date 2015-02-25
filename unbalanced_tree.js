@@ -56,36 +56,67 @@ UnbalancedTree.prototype.print = function(top, left, i) {
 	if (this.right) this.right.print(top + 30, left + 600 / i, i * 2);
 };
 
+UnbalancedTree.prototype.find = function(n) {
+	if (isNaN(n)) return;
+
+	if (n < this.node && this.left)
+		this.left.find(n);
+	else if (n > this.node && this.right)
+		this.right.find(n);
+	else if (n == this.node)
+		console.log("Find: " + this.node);
+	else
+		console.log('Not found.');
+
+};
+
 var i = 1,
 	tree,
+	rtree,
 	start;
 
 window.onload = function() {
 	start = Date.now();
-	tree = new UnbalancedTree(Math.floor(Math.random() * 10000));
-	while (i < 10000) {
-		tree.add(Math.floor(Math.random() * 10000));
+	tree = new UnbalancedTree(i);
+	while (i < 1000) {
+		tree.add(++i);
+	}
+	alert("Заполнение последовательными числами (1000): " + (Date.now() - start));
+
+	i = 0;
+	start = Date.now();
+	rtree = new UnbalancedTree(Math.floor(Math.random() * 10000));
+	while(i < 1000) {
+		rtree.add(Math.floor(Math.random()* 10000));
 		++i;
 	}
-	tree.print(30, document.body.offsetWidth / 2, 2);
+	alert("Заполнение рандомными числами: " + (Date.now() - start));
 
-	alert(Date.now() - start);
+	rtree.print(30, document.body.offsetWidth / 2, 2);
+
+	i = 0;
+	start = Date.now();
+	while (i < 10000) {
+		tree.find(Math.floor(Math.random()*10000));
+		++i;
+	}
+	alert("Поиск: " + (Date.now() - start));
 	
 	document.getElementById('add_node').onclick = addAndPrint;
 	document.getElementById('remove_node').onclick = removeAndPrint;
 };
 
 function addAndPrint() {
-	tree.add(i++);
+	rtree.add(i++);
 	clr();
-	tree.print(30, document.body.offsetWidth / 2, 2);
+	rtree.print(30, document.body.offsetWidth / 2, 2);
 }
 
 function removeAndPrint() {
 	var input = document.getElementById('remove_input');
-	tree.remove(parseInt(input.value));
+	rtree.remove(parseInt(input.value));
 	clr();
-	tree.print(30, document.body.offsetWidth / 2, 2);
+	rtree.print(30, document.body.offsetWidth / 2, 2);
 	input.value -= 1;
 }
 

@@ -58,6 +58,18 @@ BadBalancedTree.prototype.remove = function(n) {
 	return this.build(this.elements, 0, this.elements.length);
 };
 
+BadBalancedTree.prototype.find = function(n) {
+	if (n < this.node && this.left)
+		this.left.find(n);
+	else if (n > this.node && this.right)
+		this.right.find(n);
+	else if (n == this.node)
+		console.log("Find: " + this.node);
+	else
+		console.log('Not found.');
+
+};
+
 BadBalancedTree.prototype.print = function(top, left, i) {
 	var p = document.createElement('p');
 	p.style.position = "absolute";
@@ -74,15 +86,34 @@ BadBalancedTree.prototype.print = function(top, left, i) {
 
 var i = 1,
 	tree,
+	rtree,
 	start;
 
 window.onload = function() {
 	start = Date.now();
 	tree = new BadBalancedTree(0);
-	while (i < 10000) tree.add(i++);
+	while (i < 10000) tree = tree.add(i++);
+
+	alert("Заполнение последовательными числами: " + (Date.now() - start));
+
 	tree.print(30, document.body.offsetWidth / 2, 2);
 
-	alert(Date.now() - start);
+	i = 0;
+	start = Date.now();
+	rtree = new BadBalancedTree(i);
+	while(i < 1000) {
+		rtree = rtree.add(Math.floor(Math.random()* 10000));
+		++i;
+	}
+	alert("Заполнение рандомными числами: " + (Date.now() - start));
+
+	i = 0;
+	start = Date.now();
+	while (i < 10000) {
+		tree.find(Math.floor(Math.random()*10000));
+		++i;
+	}
+	alert("Поиск: " + (Date.now() - start));
 	
 	document.getElementById('add_node').onclick = addAndPrint;
 	document.getElementById('remove_node').onclick = removeAndPrint;
