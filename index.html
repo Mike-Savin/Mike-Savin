@@ -1,53 +1,28 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF8">
-		<link rel="stylesheet" href="css/tree.css">
-	</head>
-	<body>
-		<canvas id="graph_draw" height="550px"></canvas>
-		<button id="add_node">+</button>
-		<button id="remove_node">-</button>
-		<button id="toggle_table">Таблица</button>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <meta name="viewport" content="width=device-width"> -->
+    <!-- <meta name="viewport" content="maximum-scale=0.1"> -->
+    <title>Paycontent</title>
+    <link rel="stylesheet" href="css/themes/bootstrap-yeti.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+</head>
+<body>
 
-		<div class="table-container" id="table">
-			<table>
-				<thead>
-					<tr>
-						<th>Действие</th>
-						<th>AVL-tree</th>
-						<th>Binary tree</th>
-						<th>Slow AVL-tree</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Добавление</td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>Добавление (рандом)</td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>Удаление (рандом)</td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>Поиск</td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<script src="js/core/helper.js"></script>
-		<script src="js/core/main.js"></script>
-	</body>
+<div id="index" v-cloak>
+    <header-panel></header-panel>
+
+    <router-view></router-view>
+</div>
+<div class="loading"></div>
+
+<script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
+<script src="js/vendors.js"></script>
+<script src="js/index.js"></script>
+</body>
 </html>
