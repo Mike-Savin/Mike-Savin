@@ -35,7 +35,7 @@ SlowAVLTree.include({
 	},
 	remove: function(n) {
 		this.elements.remove(n)
-		console.log(this.elements);
+// 		console.log(this.elements);
 
 		return this.rebuild(this.elements, 0, this.elements.length);
 	}
